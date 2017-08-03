@@ -1,8 +1,9 @@
 class Speaker
-  def initialize label, room=nil, volume=0
-    @label = label
-    @at_room = room
-    @volume = volume
+  def initialize (args)
+    @label = args[:label] || nil
+    @at_room = args[:at_room] || nil
+    @volume = args[:volume] || 0
+    move_to @at_room
   end
 
   attr_accessor :label, :at_room, :volume
@@ -10,7 +11,7 @@ class Speaker
   def vup
     if @volume != 10
       @volume += 1
-      update_room_noise @volume
+      update_room_noise @volume, @at_room
     else
       return @volume = 10
     end
@@ -19,34 +20,31 @@ class Speaker
   def vdown
     if @volume != 0
       @volume -= 1
-      update_room_noise @volume
+      update_room_noise @volume, @at_room
     else
       return @volume = 0
     end
   end
 
-  def move_to room
-    if @at_room == room
-      puts "The speaker is in the room already"
-    else
-      leave_room @at_room
-      @at_room = room
-      room.objects[@label] = self
-      update_room_noise @volume
-      puts "Moved to the #{room.name}"
+  def move_to destination_room
+    if destination_room
+      destination_room.add_object self.label, self
+      leave_room self.at_room
+      update_room_noise self.volume, destination_room
+      update_room_noise self.volume, self.at_room
+      @at_room = destination_room
     end
   end
 
-  def leave_room room
+  def leave_room source_room
+    if source_room
+      source_room.remove_object self.label, self
+    end
+  end
+
+  def update_room_noise volume, room
     if room
-      room.objects.delete(@label)
-      update_room_noise @volume
-    end
-  end
-
-  def update_room_noise volume
-    if @at_room
-      @at_room.noise_update
+      room.noise_update
     end
   end
 end

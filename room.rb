@@ -20,4 +20,16 @@ class Room
       end
     end
   end
+
+  def add_object object_name=nil, object=nil
+    unless self.objects[object_name]
+      self.objects[object_name] = object
+    end
+  end
+
+  def remove_object object_name=nil, object=nil
+    unless self.objects[object_name]
+      self.objects.delete(object_name)
+    end
+  end
 end
