@@ -1,8 +1,8 @@
 class Mom
-  def initialize name
+  def initialize name, at_room=nil, angry=false
     @name = name
-    @at_room = nil
-    @angry = false
+    @at_room = at_room
+    @angry = angry
   end
 
   attr_accessor :name, :angry, :at_room
