@@ -1,5 +1,8 @@
 class Mom
-  def initialize name, at_room=nil, angry=false
+  def initialize name,
+    at_room=nil,
+    angry=false
+
     @name = name
     @at_room = at_room
     @angry = angry

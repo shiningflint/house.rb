@@ -7,7 +7,7 @@ class House
     @lr = Room.new "Living Room"
     @kitchen = Room.new "Kitchen"
     @mom = Mom.new "Liz"
-    @speaker = Speaker.new @lr
+    @speaker = Speaker.new "Boombastic"
   end
 
   attr_accessor :mom, :lr, :kitchen, :speaker
