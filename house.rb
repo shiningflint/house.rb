@@ -71,11 +71,29 @@ class House
 
   attr_accessor :mom, :lr, :kitchen, :speaker
 
-  def svup speaker
-    speaker.vup
+  def set_speaker_vol(speaker, updown)
+    if updown == "up"
+      speaker.vup
+    else
+      speaker.vdown
+    end
+    mom_speaker_room
   end
 
-  def svdown speaker
-    speaker.vdown
+  def mom_speaker_room
+    if @mom.at_room == @speaker.at_room
+      mom_speaker
+    else
+      "Mom is in a different room with speaker"
+    end
+  end
+
+  def mom_speaker
+    if @speaker.volume > 3
+      puts "Mom: Can you turn the volume down a bit!?"
+      @mom.set_angry true
+    else
+      @mom.set_angry false
+    end
   end
 end
