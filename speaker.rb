@@ -32,6 +32,7 @@ class Speaker
       leave_room @at_room
       @at_room = room
       room.objects[@label] = self
+      update_room_noise @volume
       puts "Moved to the #{room.name}"
     end
   end
@@ -39,6 +40,7 @@ class Speaker
   def leave_room room
     if room
       room.objects.delete(@label)
+      update_room_noise @volume
     end
   end
 
