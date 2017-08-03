@@ -10,6 +10,7 @@ class Speaker
   def vup
     if @volume != 10
       @volume += 1
+      update_room_noise @volume
     else
       return @volume = 10
     end
@@ -18,6 +19,7 @@ class Speaker
   def vdown
     if @volume != 0
       @volume -= 1
+      update_room_noise @volume
     else
       return @volume = 0
     end
@@ -37,6 +39,12 @@ class Speaker
   def leave_room room
     if room
       room.objects.delete(@label)
+    end
+  end
+
+  def update_room_noise volume
+    if @at_room
+      @at_room.noise_update
     end
   end
 end
