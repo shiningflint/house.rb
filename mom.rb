@@ -26,20 +26,18 @@ class Mom
     puts "Mom: #{say}"
   end
 
-  def enter_room room
-    if @at_room == room
-      say "I'm already in the #{room.name}"
-    else
+  def move_to destination_room
+    if destination_room && @at_room != destination_room
+      destination_room.add_object self.name, self
       leave_room @at_room
-      @at_room = room
-      room.objects[@name] = self
-      say "I'm going to the #{room.name}"
+      @at_room = destination_room
+      say "I'm going to the #{destination_room.name}"
     end
   end
 
-  def leave_room room
-    if room
-      room.objects.delete(@name)
+  def leave_room source_room
+    if source_room
+      source_room.remove_object self.name, self
     end
   end
 end
