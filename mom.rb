@@ -10,6 +10,16 @@ class Mom
 
   attr_accessor :name, :angry, :at_room
 
+  def sense_noise noise
+    if noise > 3
+      set_angry true
+      angry?
+    else
+      set_angry false
+      angry?
+    end
+  end
+
   def angry?
     if @angry
       self.say "I'm really angry!"

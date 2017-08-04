@@ -18,6 +18,17 @@ class Room
           @noise += value.volume
         end
       end
+      noise_broadcast @noise
+    end
+  end
+
+  def noise_broadcast noise
+    if @objects
+      @objects.each do |key, value|
+        if defined? value.sense_noise
+          value.sense_noise noise
+        end
+      end
     end
   end
 
