@@ -22,7 +22,11 @@ class Room
   end
 
   def add_object object_name=nil, object=nil
-    unless self.objects[object_name]
+    if self.objects[object_name]
+      puts "#{object_name} is present in the #{@name}"
+    elsif object_name == nil
+      return
+    else
       self.objects[object_name] = object
     end
   end

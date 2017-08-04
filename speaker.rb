@@ -27,10 +27,10 @@ class Speaker
   end
 
   def move_to destination_room
-    if destination_room
+    if destination_room && @at_room != destination_room
       destination_room.add_object self.label, self
       destination_room.noise_update
-      leave_room self.at_room
+      leave_room @at_room
       @at_room = destination_room
     end
   end
