@@ -1,17 +1,19 @@
 class Mom
   def initialize name,
     at_room=nil,
-    angry=false
+    angry=false,
+    tolerance=3
 
     @name = name
     @at_room = at_room
     @angry = angry
+    @tolerance = tolerance
   end
 
-  attr_accessor :name, :angry, :at_room
+  attr_accessor :name, :angry, :at_room, :tolerance
 
   def sense_noise noise
-    if noise > 3
+    if noise > @tolerance
       set_angry true
       angry?
     else
@@ -39,6 +41,7 @@ class Mom
   def move_to destination_room
     if destination_room && @at_room != destination_room
       destination_room.add_object self.name, self
+      destination_room.noise_update
       leave_room @at_room
       @at_room = destination_room
       say "I'm going to the #{destination_room.name}"
